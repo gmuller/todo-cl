@@ -26,7 +26,12 @@ namespace Todo
                 builder.Append(arg);
                 builder.Append(" ");
             }
-            todo.addTask(builder.ToString());
+            try
+            {
+                todo.addTask(builder.ToString());
+            } catch (Exception e) {
+                Console.Out.WriteLine(e.Message);
+            }
         }
 
         public void addTask(String taskName)
