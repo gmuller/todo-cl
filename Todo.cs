@@ -14,23 +14,20 @@ using System.Security;
 
 namespace Todo
 {
-    public class Todo
+    class Todo
     {
         public SecureString UserID = DecryptString(Properties.Settings.Default.userId);
         public SecureString password = DecryptString(Properties.Settings.Default.password);
         static byte[] entropy = System.Text.Encoding.Unicode.GetBytes("Salt Is Not A Password");
 
-        public static int Main(string[] args)
+        static int Main(string[] args)
         {
             var options = new Options();
             ICommandLineParser parser = new CommandLineParser();
             if (parser.ParseArguments(args, options))
             {
-                bool optionSet = false;
-                // consume Options type fields
                 if (options.username != null)
                 {
-                    optionSet = true;
                     Properties.Settings.Default.userId = EncryptString(ToSecureString(options.username));
                     Properties.Settings.Default.Save();
                     Console.Out.WriteLine("Successfully Set Username");
@@ -38,45 +35,73 @@ namespace Todo
 
                 if (options.password != null)
                 {
-                    optionSet = true;
                     Properties.Settings.Default.password = EncryptString(ToSecureString(options.password));
                     Properties.Settings.Default.Save();
                     Console.Out.WriteLine("Successfully Set Password");
                 }
 
-                if (optionSet)
+                if (options.settings != null)
                 {
-                    Console.Out.WriteLine("Options set. Todo is ready to do it.");
-                    return 0;
-                }
-            }
+                    string[] settings = options.settings.Split(':');
+                    if (settings.Length == 2 && settings[0].ToLower() == "folder")
+                    {
+                        Properties.Settings.Default.folder = settings[1];
+                        Properties.Settings.Default.Save();
+                    }
 
-            Todo todo = new Todo();
-            StringBuilder builder = new StringBuilder();
-            foreach (String arg in args)
-            {
-                builder.Append(arg);
-                builder.Append(" ");
-            }
-            try
-            {
-                todo.addTask(builder.ToString());
-            } catch (Exception e) {
-                Console.Out.WriteLine(e.Message);
+                    if (settings.Length == 2 && settings[0].ToLower() == "context" && settings[1] != null)
+                    {
+                        Properties.Settings.Default.folder = settings[1];
+                        Properties.Settings.Default.Save();
+                    }
+                }
+
+                Todo todoCL = new Todo();
+                Task newTask = new Task();
+                newTask.Name = string.Join(" ", options.task.Select(i => i.ToString()).ToArray());
+                
+                string folder = options.folder != null ? options.folder : Properties.Settings.Default.folder;
+                if (folder != null) newTask.Folder = todoCL.getFolder(folder);
+
+                string context = options.context != null ? options.context : Properties.Settings.Default.context;
+                if (context != null) newTask.Context = todoCL.getContext(context);
+
+                if (options.tags != null) newTask.Tag = string.Join(",", options.tags.Select(i => i.ToString()).ToArray());
+                if (options.duedate != null)
+                {
+                    DateTime? dueDate = DateParser.Parse(options.duedate);
+                    if (dueDate != null) newTask.Due = (DateTime)dueDate;
+                }
+                int taskLength;
+                if (options.length != null && int.TryParse(options.length, out taskLength)) newTask.Length = taskLength;
+
+                try
+                {
+                    todoCL.addTask(newTask);
+                }
+                catch (Exception e)
+                {
+                    Console.Out.WriteLine(e.Message);
+                }
             }
             return 0;
         }
 
-        public void addTask(String taskName)
+        private Context getContext(string contextName)
         {
-            var task = new Task() { Name = taskName, Folder = getFolder() };
+            IEnumerable<Context> contextList = General.GetContexts();
+            return contextList.FirstOrDefault(context => context.Name.ToLower() == contextName.ToLower());
+        }
+
+        public void addTask(Task task)
+        {
             var added = Tasks.AddTask(task);
         }
 
-        public Folder getFolder()
+        public Folder getFolder(string folderName)
         {
-            Folder folder = General.GetFolders().First();
-            return folder;
+            IEnumerable<Folder> folderList = General.GetFolders();
+            return folderList.FirstOrDefault(folder => folder.Name.ToLower() == folderName.ToLower());
         }
 
         private Session _session = null;

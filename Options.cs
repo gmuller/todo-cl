@@ -14,8 +14,26 @@ namespace Todo
         [Option("p", "password", HelpText = "password")]
         public string password = null;
 
-        [Option("t", "todo", HelpText = "todo")]
-        public string todo = null;
+        [OptionList("t", "tags", Separator = ',', HelpText = "Specify tags, separated by a comma")]
+        public IList<string> tags = null;
+
+        [Option("f", "folder", HelpText = "Specify Folder")]
+        public string folder = null;
+
+        [Option("c", "context", HelpText = "Specify Context")]
+        public string context = null;
+
+        [Option("d", "duedate", HelpText = "Specify Due Date")]
+        public string duedate = null;
+
+        [Option("l", "length", HelpText = "Specify Length in minutes")]
+        public string length = null;
+
+        [Option("s", "set", HelpText = "Specify default folder or context in the format -s Folder:Inbox")]
+        public string settings = null;
+
+        [ValueList(typeof(List<string>), MaximumElements = -1)]
+        public IList<string> task = null;
 
         [HelpOption(HelpText = "Display this help screen.")]
         public string GetUsage()
