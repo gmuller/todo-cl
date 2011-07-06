@@ -23,7 +23,10 @@ namespace Todo
         static int Main(string[] args)
         {
             var options = new Options();
-            ICommandLineParser parser = new CommandLineParser();
+            var parsingSettings = new CommandLineParserSettings();
+            parsingSettings.CaseSensitive = false;
+            parsingSettings.HelpWriter = Console.Error;
+            ICommandLineParser parser = new CommandLineParser(parsingSettings);
             if (parser.ParseArguments(args, options))
             {
                 if (options.username != null)
@@ -56,32 +59,34 @@ namespace Todo
                     }
                 }
 
-                Todo todoCL = new Todo();
-                Task newTask = new Task();
-                newTask.Name = string.Join(" ", options.task.Select(i => i.ToString()).ToArray());
-                
-                string folder = options.folder != null ? options.folder : Properties.Settings.Default.folder;
-                if (folder != null) newTask.Folder = todoCL.getFolder(folder);
-
-                string context = options.context != null ? options.context : Properties.Settings.Default.context;
-                if (context != null) newTask.Context = todoCL.getContext(context);
-
-                if (options.tags != null) newTask.Tag = string.Join(",", options.tags.Select(i => i.ToString()).ToArray());
-                if (options.duedate != null)
-                {
-                    DateTime? dueDate = DateParser.Parse(options.duedate);
-                    if (dueDate != null) newTask.Due = (DateTime)dueDate;
-                }
-                int taskLength;
-                if (options.length != null && int.TryParse(options.length, out taskLength)) newTask.Length = taskLength;
-
                 try
                 {
+                    Todo todoCL = new Todo();
+                    Task newTask = new Task();
+                    newTask.Name = string.Join(" ", options.task.Select(i => i.ToString()).ToArray());
+
+                    string folder = options.folder != null ? options.folder : Properties.Settings.Default.folder;
+                    if (folder != null) newTask.Folder = todoCL.getFolder(folder);
+
+                    string context = options.context != null ? options.context : Properties.Settings.Default.context;
+                    if (context != null) newTask.Context = todoCL.getContext(context);
+
+                    if (options.tags != null) newTask.Tag = string.Join(",", options.tags.Select(i => i.ToString()).ToArray());
+                    if (options.duedate != null)
+                    {
+                        DateTime? dueDate = DateParser.Parse(options.duedate);
+                        if (dueDate != null) newTask.Due = (DateTime)dueDate;
+                    }
+                    int taskLength;
+                    if (options.length != null && int.TryParse(options.length, out taskLength)) newTask.Length = taskLength;
+
+
                     todoCL.addTask(newTask);
                 }
                 catch (Exception e)
                 {
                     Console.Out.WriteLine(e.Message);
+                    Console.Out.WriteLine(options.GetUsage());
                 }
             }
             return 0;

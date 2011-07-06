@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CommandLine;
+using System.IO;
 
 namespace Todo
 {
@@ -38,11 +39,25 @@ namespace Todo
         [HelpOption(HelpText = "Display this help screen.")]
         public string GetUsage()
         {
-            var usage = new StringBuilder();
-            usage.AppendLine("Todo Command Line");
-            usage.AppendLine("use -u or -p to enter username and password");
-            usage.AppendLine("or just enter a todo");
-            return usage.ToString();
+            StringBuilder usageString = new StringBuilder();
+            try
+            {
+                using (TextReader sr = new StreamReader("README.md"))
+                {
+                    String line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        usageString.Append(line);
+                        usageString.Append("\n");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                usageString.Append("The file could not be read:");
+                usageString.Append(e.Message);
+            }
+            return usageString.ToString();
         }
     }
 }
