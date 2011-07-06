@@ -46,8 +46,10 @@ Additional Options
 	
 	_Format =  PROPERTY:VALUE (ex: `folder:Actions`)_
 
-		todo.exe -s folder:Inbox
-		todo.ext -s context:Home
+		todo.exe set default folder -s folder:Inbox
+		todo.ext set default context -s context:Home
+
+	_If set all new tasks will go to the default folder or context_
 
 + -h --help _display this help screen_
  
