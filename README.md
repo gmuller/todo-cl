@@ -7,7 +7,7 @@ Todo - CL
 Basic Installation and Usage
 ----------------------------
 
-1. Download and unzip to a location in your PATH
+1. Download and unzip the files to a location in your PATH
 2. Execute todo.exe with the -u and -p options 
 to set your toodledo user id and password
 	
@@ -48,6 +48,8 @@ Additional Options
 
 		todo.exe -s folder:Inbox
 		todo.ext -s context:Home
+
++ -h --help _display this help screen_
  
 
 Compiling From Source
