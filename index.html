@@ -1,103 +1,113 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta name="generator" content="HTML Tidy for Windows (vers 14 February 2006), see www.w3.org">
-    <meta charset='utf-8'>
-    <title>
-      Todo-CL @ GitHub
-    </title>
-    <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #ffffff;
-      font-family: Georgia, "Times New Roman", Times, serif;
-      color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: #000000; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #000000; }
-    h3 { text-align: center; color: #000000; }
-    a { color: #000000; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-    </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Todo-cl by gmuller</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
   <body>
-    <a href="http://github.com/gmuller/todo-cl"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
-    <div id="container">
-      <div class="download">
-        <a href="https://github.com/downloads/gmuller/todo-cl/todo-cl-2.0.0.0.zip"><img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a> 
-      </div>
-      <h1>
-        <a href="http://github.com/gmuller/todo-cl">todo-cl</a> <span class="small">by <a href="http://github.com/gmuller">gmuller</a></span>
-      </h1>
-      <div class="description">
-        This is a command line application for Windows written in C# that allows a user to quickly send new todo's to Toodledo. I use it with launchy for ultra-fast todo input
-      </div>
-      <h2>
-        Dependencies
-      </h2>
-      <p>
-        <strong>C# Toodledo Client</strong> - http://archive.msdn.microsoft.com/toodledo<br>
-        <strong>CommandLineParser</strong> - http://commandline.codeplex.com/
-      </p>
-      <h2>
-        Install
-      </h2>
-      <ol>
-        <li><a href="http://github.com/gmuller/todo-cl">Download</a> and unzip files to a location in your PATH</li>
-        <li>Execute todo.exe with the -u and -p options to set your toodledo user id and password</li>
-          <br>
-          <code>todo.exe -u myuserid -p mypassword</code><br>
-          <br>
-          NOTE: This is not your username, but the unique id located on your settings page in toodledo<br>
-          <br>
-        <li>Execute todo.exe with a task name to add to your inbox</li>
-          <br>
-          <code>todo.exe this is the task I want to add</code><br>
-          <br>
-        <li>Bonus: Run it with launchy!</li>
-      </ol>
-      <p>
-        For extended usage information, consult the <a href="https://github.com/gmuller/todo-cl/blob/master/README.md">README</a>
-      </p>
-      <h2>
-        <strong>Authors</strong>
-      </h2>
-      <p>
-        <strong>Grant Muller (grant@grantmuller.com)<br>
-        <br></strong>
-      </p>
-      <h2>
-        <strong>Contact</strong>
-      </h2>
-      <p>
-        <strong>(grant@grantmuller.com)<br></strong>
-      </p>
-      <h2>
-        <strong>Download</strong>
-      </h2>
-      <p>
-        <strong>You can download this project in either <a href="http://github.com/gmuller/todo-cl/zipball/master">zip</a> or <a href="http://github.com/gmuller/todo-cl/tarball/master">tar</a> formats.</strong>
-      </p>
-      <p>
-        <strong>You can also clone the project with <a href="http://git-scm.com">Git</a> by running:</strong>
-      </p>
-      <pre>
-<strong>$ git clone git://github.com/gmuller/todo-cl
-</strong>
-</pre>
-      <div class="footer">
-        <strong>get the source code on GitHub : <a href="http://github.com/gmuller/todo-cl">gmuller/todo-cl</a></strong>
-      </div>
+    <div class="wrapper">
+      <header>
+        <h1>Todo-cl</h1>
+        <p>A command line application for Windows written in C# that allows a user to quickly send new todo's to Toodledo. I use it with launchy for ultra-fast todo input</p>
+
+        <p class="view"><a href="https://github.com/gmuller/todo-cl">View the Project on GitHub <small>gmuller/todo-cl</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/gmuller/todo-cl/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/gmuller/todo-cl/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/gmuller/todo-cl">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p><em>A command line tool to quickly add tasks to Toodledo</em></p>
+
+<h2>Basic Installation and Usage</h2>
+
+<ol>
+<li>Download and unzip the files to a location in your PATH</li>
+<li>
+<p>Execute todo.exe with the -u and -p options 
+to set your toodledo user id and password</p>
+
+<pre><code>todo.exe -u myuserid -p mypassword
+</code></pre>
+
+<p><em>NOTE: This is not your username, 
+but the unique id located on your 
+settings page in toodledo</em></p>
+</li>
+<li>
+<p>Execute todo.exe with a task name to add to your inbox</p>
+
+<pre><code>todo.exe this is the task I want to add
+</code></pre>
+</li>
+<li><p>Bonus: Run it with launchy</p></li>
+</ol><h2>Additional Options</h2>
+
+<ul>
+<li>
+<p>-t --tags <em>comma delimited list of tags</em></p>
+
+<pre><code>todo.exe a task with tags -t work,play,tag3
+</code></pre>
+</li>
+<li>
+<p>-f --folder <em>folder to insert the task into</em></p>
+
+<pre><code>todo.exe a task with a folder -f Inbox
+</code></pre>
+</li>
+<li>
+<p>-c --context <em>context to use</em></p>
+
+<pre><code>todo.exe a task with a context -c Home
+</code></pre>
+</li>
+<li>
+<p>-l --length <em>length of the task in minutes</em></p>
+
+<pre><code>todo.exe a task with a length -l 20
+</code></pre>
+</li>
+<li>
+<p>-s --set <em>set a default property</em></p>
+
+<p><em>Format =  PROPERTY:VALUE (ex: <code>folder:Actions</code>)</em></p>
+
+<pre><code>todo.exe set default folder -s folder:Inbox
+todo.ext set default context -s context:Home
+</code></pre>
+
+<p><em>If set all new tasks will go to the default folder or context</em></p>
+</li>
+<li><p>-h --help <em>display this help screen</em></p></li>
+</ul><h2>Compiling From Source</h2>
+
+<p>This little project works with the Toodledo API Version 1.0. 
+I will update it to work with 2.0 when Toodledo no longer supports 1.0.</p>
+
+<p>This project also requires a few projects that are not provided:</p>
+
+<p><a href="http://archive.msdn.microsoft.com/toodledo">ToodleDo API Client</a></p>
+
+<p><a href="http://commandline.codeplex.com/">.NET CommandLineParser</a></p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/gmuller">gmuller</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
     </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
   </body>
 </html>
